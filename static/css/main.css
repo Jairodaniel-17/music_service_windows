@@ -1,0 +1,228 @@
+/* Este es el archivo main.css. Agrega tus estilos aquí */
+
+body {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.container {
+    background-color: #494848;
+    border: 1px solid #494848;
+    border-radius: 15px;
+    margin-top: 20px;
+    padding: 20px;
+    /*margenes a la izquierda y a la derecha*/
+    margin-left: 0px;
+    margin-right: 5px;
+    /*margenes arriba y abajo*/
+    margin-bottom: 10px;
+
+}
+
+h1 {
+    color: #f87676;
+    font-style: italic;
+    /*sombreado*/
+    text-shadow: 2px 2px 4px #4e1c1c;
+    text-align: center;
+}
+
+.btn-success {
+    background-color: #313131;
+    border-color: #313131;
+}
+
+.btn-success:hover {
+    background-color: #1a1a1a;
+    border-color: #1a1a1a;
+}
+
+/* Centro verticalmente el reproductor de audio */
+.audio-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.audio-container audio {
+    margin-top: 10px;
+    width: 100%;
+    /* Ajusta el ancho del reproductor de audio al 100% */
+}
+
+#nombreCancion {
+    color: #f87676;
+    font-style: italic;
+    font-size: 1.5rem;
+    /* Tamaño de fuente responsivo */
+    text-shadow: 2px 2px 4px #000000;
+    text-align: center;
+    white-space: normal;
+    /* Permitirá que el texto se desplace hacia abajo si es muy grande */
+    margin-top: 10px;
+    /* Márgenes superiores para separar del resto de los elementos */
+}
+
+
+.img-fluid {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /*margen superior */
+    margin-top: 20px;
+    width: 67%;
+    border-radius: 5%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    object-fit: cover;
+    object-position: center center;
+    aspect-ratio: 1/1;
+    display: none;
+}
+
+.list-group-item {
+    background-color: #494848;
+    border: 1px solid #494848;
+    border-radius: 15px;
+    color: #ffffff;
+}
+
+.list-group-item {
+    cursor: pointer;
+    /* Cambia el cursor al pasar sobre los elementos de la lista */
+}
+
+.list-group-item:hover {
+    background-color: #282828;
+    /* color del texto a blanco */
+    color: #f87676;
+
+}
+
+.list-group-item:focus {
+    background-color: #282828;
+    /* color del texto a blanco */
+    color: #ffffff;
+
+}
+
+/* Ajustes para el contenedor de la lista con scroll */
+.song-list-container {
+    max-height: 430px;
+    /* Ajusta la altura máxima según tus necesidades */
+    overflow-y: auto;
+    /* Añade scroll vertical */
+}
+
+/* Estilos para el scrollbar */
+.song-list-container::-webkit-scrollbar {
+    width: 12px;
+}
+
+.song-list-container::-webkit-scrollbar-thumb {
+    background-color: #282828;
+    /* Color del scrollbar thumb (barra deslizadora) */
+    border-radius: 10px;
+}
+
+.song-list-container::-webkit-scrollbar-track {
+    background-color: #494848;
+    /* Color del scrollbar track (fondo del scrollbar) */
+}
+
+/* Estilos para el input de búsqueda */
+#searchInput {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    background-color: #282828;
+    /* Color de fondo del input */
+    color: #ffffff;
+    /* Color del texto */
+    border: 1px solid #494848;
+    /* Color del borde */
+    border-radius: 15px;
+}
+
+/* Estilos para el texto dentro del input de búsqueda */
+#searchInput::placeholder {
+    color: #777777;
+    /* Color del texto de placeholder */
+}
+
+#urlInput {
+    background-color: #282828;
+    color: #ffffff;
+    border: #282828;
+}
+
+#urlInput::placeholder {
+    color: #777777;
+    /* Color del texto de placeholder */
+}
+
+#player {
+    filter: invert(1);
+}
+
+#textoBienvenida {
+    color: #f87676;
+    font-style: italic;
+    font-size: 20px;
+}
+
+#downloadMessage {
+    color: #f87676;
+    font-style: italic;
+    font-size: 20px;
+}
+
+#descargarTodo {
+    color: #f87676;
+    font-style: italic;
+    font-size: 20px;
+    text-align: center;
+    /* alinear al centro */
+    margin-left: auto;
+    margin-right: auto;
+    /* margenes arriba y abajo */
+    margin-bottom: 10px;
+    margin-top: 30px;
+    /* ocupar todo el ancho del contenedor */
+    display: block;
+}
+
+.container-info {
+    background-color: #227ca0;
+    border: 1px solid #494848;
+    border-radius: 15px;
+    margin-top: 20px;
+    padding: 20px;
+    margin-left: 0px;
+    margin-right: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+.container-info p {
+    margin-bottom: 10px;
+    color: #fff;
+    font-size: 16px;
+    align-items: center;
+    text-align: center;
+}
+
+#songImage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /*margen superior */
+    margin-top: 20px;
+    width: 65%;
+    border-radius: 5%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    object-fit: cover;
+    object-position: center center;
+    aspect-ratio: 1/1;
+    display: none;
+}
