@@ -200,7 +200,6 @@ def img(filename):
 
 
 if __name__ == "__main__":
-    webbrowser.open("http://localhost:50000/")
     app.run(host="localhost", port=50000)
 
 # pyinstaller --onefile --windowed --add-data "static;static" --add-data "templates;templates" --ico=icon.ico app.py
