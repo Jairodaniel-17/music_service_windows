@@ -1,31 +1,29 @@
 # Usamos una imagen base de Python
 FROM python:3.9-slim
 
-# Instalamos las dependencias necesarias, como ffmpeg
+# Instalamos las dependencias necesarias, como ffmpeg y git
 RUN apt-get update && \
     apt-get install -y \
     ffmpeg \
     libsndfile1 \
     curl \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
 # Establecemos el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copiamos el archivo requirements.txt al contenedor
-COPY requirements.txt /app/
+# Clonamos el repositorio de GitHub
+RUN git clone https://github.com/Jairodaniel-17/music_service_windows.git /app
 
-# Instalamos las dependencias de Python
+# Nos aseguramos de estar dentro del directorio del repositorio
+WORKDIR /app
+
+# Instalamos las dependencias de Python dentro del contenedor
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiamos todo el código de la aplicación al contenedor
-COPY . /app/
-
-# Asignamos permisos a todos los archivos y directorios
-RUN chmod -R 755 /app
-
 # Exponemos el puerto en el que la app de Flask se ejecutará
-EXPOSE 5000
+EXPOSE 51000
 
-# Comando para iniciar la aplicación
+# Establecemos el comando para ejecutar la aplicación de Flask
 CMD ["python", "app.py"]
