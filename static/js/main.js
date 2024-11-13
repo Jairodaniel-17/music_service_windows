@@ -53,7 +53,6 @@ const songImage = document.getElementById('songImage');
 const downloadMessage = document.getElementById('downloadMessage');
 const nombreCancion = document.getElementById('nombreCancion');
 
-// ... (tu código existente)
 
 // Variable para almacenar todas las canciones
 const songListItems = document.querySelectorAll('#cancionSeleccionada li');
@@ -117,26 +116,27 @@ cancionSeleccionada.addEventListener('click', async function (event) {
 });
 
 
-// Función para cargar la canción
 async function loadAudio(url) {
     return new Promise((resolve, reject) => {
         audioSource.src = url;
         player.load();
         player.oncanplaythrough = resolve;
-        player.onerror = reject;
+        player.onerror = () => {
+            reject(new Error('Error al cargar el audio'));
+        };
     });
 }
 
-// Función para cargar la imagen
 async function loadImage(url) {
     return new Promise((resolve, reject) => {
         songImage.src = url;
         songImage.onload = resolve;
-        songImage.onerror = reject;
+        songImage.onerror = () => {
+            reject(new Error('Error al cargar la imagen'));
+        };
     });
 }
 
-// Función para descargar una canción
 async function downloadSong() {
     try {
         const urlInput = document.getElementById('urlInput');
@@ -146,24 +146,27 @@ async function downloadSong() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                url: urlInput.value
+                url: urlInput.value.trim() // Asegúrate de eliminar espacios en blanco
             })
         });
 
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+
         const data = await response.json();
-        downloadMessage.textContent = `Descarga exitosa. Título: ${data.message}, se autorefrescará en 3 segundos.`;
+        downloadMessage.textContent = `Descarga exitosa. Título: ${data.message}, se autorefrescará en 5 segundos.`;
 
         // Actualizar la lista de canciones recargando la página después de la descarga exitosa
         setTimeout(function () {
             location.reload();
-        }, 3000);
+        }, 5000);
     } catch (error) {
         console.error('Error al descargar la canción:', error);
-        downloadMessage.textContent = 'Error al descargar la canción.';
+        downloadMessage.textContent = 'Error al descargar la canción: ' + error.message; // Muestra el mensaje de error
     }
-
-
 }
+
 
 const searchInput = document.getElementById('searchInput');
 

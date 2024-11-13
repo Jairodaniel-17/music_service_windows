@@ -1,6 +1,6 @@
 flask
 requests
-pytube
 flask_cors
 Flask-RESTful 
 Flask-RESTful-Swagger
+yt-dlp
