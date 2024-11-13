@@ -124,7 +124,7 @@ La aplicación permite al usuario descargar todas las canciones e imágenes asoc
      ```
 
 6. **Abrir la aplicación**:
-   - Accede a `http://localhost:51000` en tu navegador para ver la interfaz y probar las funcionalidades.
+   - Accede a `http://localhost:5000` en tu navegador para ver la interfaz y probar las funcionalidades.
 
 ## **Uso de la Aplicación**
 
