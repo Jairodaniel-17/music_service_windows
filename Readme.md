@@ -1,10 +1,12 @@
+# Musica-flask
+
 **1. Introducción**
 
-**1.1 Descripción General del Proyecto**
-Musica-flask es una aplicación web diseñada para facilitar la descarga y gestión de música desde YouTube, proporcionando una experiencia intuitiva y organizada para los usuarios. A través de esta aplicación, los usuarios pueden descargar canciones, almacenar archivos de audio y sus imágenes relacionadas, y descargar todo el contenido en un paquete compacto si lo desean. Construida sobre el framework Flask, Musica-flask implementa una estructura modular que incluye patrones de diseño para asegurar una arquitectura flexible, escalable y fácil de mantener. Con una combinación de servicios, repositorios, controladores y routers, la aplicación garantiza una interacción fluida y eficiente en el manejo de los datos, convirtiéndola en una herramienta completa y accesible para la gestión de contenido musical.
+**1.1 Descripción General del Proyecto**  
+Musica-flask es una aplicación web diseñada para facilitar la descarga y gestión de música desde YouTube, ofreciendo una experiencia intuitiva para los usuarios. La aplicación permite descargar canciones, almacenar archivos de audio e imágenes relacionadas, y descargar todo el contenido en un archivo ZIP. Su arquitectura modular incluye patrones de diseño que garantizan escalabilidad, flexibilidad y facilidad de mantenimiento. En esta nueva versión, se ha mejorado la eficiencia y la seguridad en la gestión de recursos al implementar el patrón Singleton en la clase `SongRepository`, asegurando que esta clase tenga una única instancia durante toda la ejecución de la aplicación.
 
-**1.2 Estructura del Proyecto**
-El proyecto se organiza en carpetas y archivos clave, cada uno cumpliendo una función específica que contribuye al cumplimiento de los requisitos de funcionalidad y diseño.
+**1.2 Estructura del Proyecto**  
+El proyecto está organizado en una estructura clara y modular que facilita la navegación, el mantenimiento y la extensión de funcionalidades.  
 
 **Estructura de Carpetas:**
 ```plaintext
@@ -42,99 +44,73 @@ Musica-flask/
     └── layout.html
 ```
 
-**1.3 Explicación de Archivos y Directorios**
+**1.3 Explicación de Archivos y Directorios**  
+(Se mantiene como en la versión anterior, excepto la actualización en `repositories/song_repository.py`)
 
-**1.3.1 Archivos Base**
-- `.gitignore`: Define archivos y carpetas que Git debe ignorar.
-- `app.py`: Archivo principal de configuración para la aplicación Flask; registra rutas y establece encabezados CORS.
-- `ejecutable.bat`: Script para iniciar la aplicación en sistemas Windows.
-- `favicon.ico`: Ícono para la interfaz de la aplicación.
-- `Readme`: Guía de instalación y uso de la aplicación.
-- `requirements.txt`: Lista de dependencias del proyecto.
-
-**1.3.2 Directorios**
-- `.venv/`: Contiene el entorno virtual para el aislamiento de dependencias.
-- `music/`: Almacena las canciones descargadas.
-- `repositories/`: Incluye `song_repository.py`, que maneja el acceso a las canciones.
-- `routers/`: Define rutas en archivos separados (e.g., `download_routes.py`, `image_routes.py`, `music_routes.py`).
-- `services/`: Contiene servicios como `file_service.py`, `youtube_service.py`, y `zip_service.py`, los cuales encapsulan la lógica de negocio.
-- `static/`: Incluye archivos estáticos (CSS, imágenes, JavaScript).
-- `temp/`: Almacena archivos temporales durante las operaciones de descarga y conversión.
-- `templates/`: Incluye plantillas HTML para la interfaz de usuario, como `index.html` y `layout.html`.
-
-**1.4 Funcionalidades Principales**
-1. **Descarga de Canciones**: Permite a los usuarios descargar el audio de YouTube en formato MP3, almacenado en la carpeta `music`, junto con una imagen de portada en `img`.
-2. **Listado y Visualización de Canciones**: En la ruta principal `/`, muestra la lista de canciones descargadas en la interfaz de usuario.
-3. **Descarga en Paquete ZIP**: Ofrece la opción de descargar todas las canciones e imágenes en un solo archivo ZIP, utilizando el servicio `zip_service.py`.
-
-**1.5 Instrucciones de Instalación**
-1. **Clonar el repositorio**:
-   ```bash
-   git clone <URL_DEL_REPOSITORIO>
-   cd Musica-flask
-   ```
-2. **Crear y activar el entorno virtual**:
-   ```bash
-   python -m venv .venv
-   ```
-   - En Windows:
-     ```bash
-     .venv\Scripts\activate
-     ```
-   - En Unix/Mac:
-     ```bash
-     source .venv/bin/activate
-     ```
-3. **Instalar dependencias**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. **Ejecutar la aplicación**:
-   - En Windows: usa el archivo `ejecutable.bat` o ejecuta:
-     ```bash
-     python app.py
-     ```
-5. **Abrir la aplicación**:
-   - Accede a `http://localhost:5000` en tu navegador para probar las funcionalidades.
-
-**1.5.1 Uso de la Aplicación**
-1. **Descargar Canción**: Inserta el enlace de YouTube y presiona "Descargar". La canción y la imagen se guardarán en las carpetas `music` e `img`.
-2. **Visualizar Lista de Canciones**: En la página principal se muestra la lista de canciones descargadas.
-3. **Descargar Todo en ZIP**: Para obtener todas las canciones e imágenes en un archivo ZIP, selecciona "Descarga completa".
+**1.3.2 Directorios**  
+- `repositories/`: Incluye `song_repository.py`, que maneja el acceso a las canciones. Ahora utiliza el patrón Singleton para garantizar que solo exista una instancia de la clase `SongRepository`, optimizando la gestión de recursos.
 
 ---
 
 **2. Patrones de Diseño Utilizados**
-La aplicación implementa varios patrones de diseño que aseguran un código modular, escalable y reutilizable. 
 
-**2.1 Patrones Específicos**
-- **Servicio (Service)**: Encapsula la lógica de negocio en servicios reutilizables. Servicios como `YouTubeService`, `FileService`, y `ZipService` manejan operaciones específicas (descarga de videos, conversión de archivos, creación de ZIP) de manera clara y accesible.
-- **Repositorio (Repository)**: Abstrae el acceso a datos, permitiendo gestionar operaciones sin exponer detalles internos. `SongRepository` gestiona datos de canciones, facilitando la persistencia de archivos.
-- **Router/Blueprint**: Organiza las rutas en módulos independientes para una mejor modularidad. Los archivos en `routers` agrupan rutas por funcionalidad, como descarga de música y gestión de imágenes.
-- **Abstracción de Funciones**: Simplifica la interacción con funciones complejas. `FileService` ofrece métodos para la limpieza de nombres, guardado de imágenes y conversión de MP3, abstraídos de los detalles de implementación.
-- **Controlador (Controller)**: Coordina interacciones entre servicios y vistas. `app.py` centraliza la configuración y coordinación del sistema.
-- **Fachada (Facade)**: Simplifica la interacción con subsistemas complejos mediante una interfaz unificada. Los servicios funcionan como fachadas para encapsular la lógica compleja de las operaciones.
+**2.1 Patrones Específicos**  
+- **Singleton**: Se asegura que `SongRepository` sea una única instancia en toda la aplicación, proporcionando un punto centralizado para acceder a las operaciones relacionadas con las canciones. Esto previene problemas de inconsistencia de datos o duplicación de operaciones sobre el sistema de archivos.  
+  **Implementación**: Se utilizó una metaclase `SingletonMeta` con bloqueo de subprocesos (`thread-safe`) para garantizar la creación controlada de instancias.  
 
-**2.2 Otros Patrones Implícitos**
-- **Fábrica (Factory Method)**: Servicios como `YouTubeService` y `FileService` crean instancias de otras clases o realizan operaciones sin exponer el proceso de creación.
-- **Adaptador (Adapter)**: `YouTubeService` actúa como un adaptador entre la API externa de YouTube y la aplicación, proporcionando una interfaz simplificada.
+Ejemplo de código:
+```python
+class SingletonMeta(type):
+    _instances = {}
+    _lock = Lock()
+
+    def __call__(cls, *args, **kwargs):
+        with cls._lock:
+            if cls not in cls._instances:
+                instance = super().__call__(*args, **kwargs)
+                cls._instances[cls] = instance
+        return cls._instances[cls]
+
+class SongRepository(metaclass=SingletonMeta):
+    def __init__(self):
+        if not hasattr(self, "initialized"):
+            self.music_path = os.path.join(os.getcwd(), "music")
+            self.initialized = True
+```
+
+**Otros Patrones Relevantes:**
+- **Servicio (Service)**: Encapsula la lógica de negocio en servicios reutilizables.
+- **Repositorio (Repository)**: Maneja operaciones de persistencia y recuperación de datos, implementado ahora como Singleton.
+- **Router/Blueprint**, **Fachada (Facade)**, **Controlador (Controller)**, y otros permanecen sin cambios, con ejemplos claros de su implementación en el proyecto.
 
 ---
 
-**3. Conclusión**
-Musica-flask es una aplicación robusta y escalable, optimizada mediante patrones de diseño bien establecidos. Su arquitectura modular, basada en patrones de Servicio, Repositorio, Router/Blueprint, Abstracción de Funciones y Controlador, asegura una gestión eficiente de las operaciones y facilita la incorporación de nuevas funcionalidades sin complejidad adicional. El uso de Flask y estos patrones garantizan un rendimiento óptimo y una experiencia de usuario fluida, proporcionando una base sólida para futuras mejoras.
+**3. Conclusión**  
+Con la inclusión del patrón Singleton en `SongRepository`, la aplicación Musica-flask refuerza su arquitectura modular y escalable, asegurando una gestión eficiente de los recursos relacionados con las canciones. Esto, junto con los otros patrones de diseño, facilita el mantenimiento y asegura que la aplicación pueda manejar futuras expansiones sin comprometer el rendimiento o la estabilidad.
+
+
+Tienes razón, el patrón utilizado en **`ConfigService`** no es un **Singleton** tradicional, sino que se implementa a través de una clase que utiliza la metaclase **`SingletonMeta`**. Esto asegura que sólo exista una instancia de la clase en todo el ciclo de vida de la aplicación. Vamos a corregir el anexo:
 
 ---
 
-**4. Anexo: Patrones de Diseño**
+**4. Anexo: Patrones de Diseño**  
 
-| **Patrón de Diseño** | **Descripción** | **Implementación en el Proyecto** |
-|-----------------------|-----------------|------------------------------------|
-| Servicio (Service)    | Encapsula la lógica de negocio en servicios reutilizables. | `YouTubeService`, `FileService` y `ZipService` encapsulan operaciones como descarga y conversión de archivos. |
-| Repositorio (Repository) | Abstrae el acceso a datos para facilitar el mantenimiento. | `SongRepository` gestiona el almacenamiento y acceso a archivos de música e imágenes. |
-| Router/Blueprint      | Organiza las rutas en módulos independientes. | Archivos en `routers` definen rutas para cada funcionalidad. |
-| Abstracción de Funciones | Simplifica la interacción con funciones complejas. | `FileService` abstrae operaciones como limpieza de nombres y conversión de MP3. |
-| Controlador (Controller) | Coordina la lógica de aplicación entre servicios y vistas. | `app.py` centraliza la configuración de la aplicación Flask. |
-| Fachada (Facade)      | Simplifica la interacción con subsistemas complejos. | Servicios encapsulan lógica de operaciones complejas como la descarga y empaquetado. |
-| Fábrica (Factory Method) | Simplifica la creación de objetos complejos sin exponer el proceso de instanciación. | Implícito en servicios que crean instancias de otras clases. |
-| Adaptador (Adapter)   | Permite la adaptación de una interfaz externa. | `YouTubeService` adapta la API de YouTube mediante `yt_dlp`. |
+El proyecto **Musica-flask** emplea varios patrones de diseño que aseguran modularidad, reutilización y escalabilidad. Este anexo describe cada patrón utilizado, su propósito y cómo se implementa en el proyecto.  
+
+| **Patrón de Diseño**      | **Descripción**                                                                                                   | **Implementación en el Proyecto**                                                                                           |
+|---------------------------|-------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| **Singleton (con SingletonMeta)** | Asegura que una clase tenga una única instancia en toda la aplicación mediante una metaclase especializada.  | Implementado en `ConfigService` utilizando `SingletonMeta` para centralizar y mantener una única configuración global.      |
+| **Servicio (Service)**    | Encapsula la lógica de negocio en componentes reutilizables y accesibles desde múltiples partes del sistema.      | `YouTubeService`, `FileService` y `ZipService` manejan operaciones específicas como descarga de videos y creación de ZIP.   |
+| **Repositorio (Repository)** | Abstrae el acceso a los datos para facilitar la gestión y el mantenimiento sin exponer la implementación interna. | `SongRepository` maneja la persistencia de archivos de música e imágenes en el sistema de archivos.                         |
+| **Router/Blueprint**      | Divide las rutas de la aplicación en módulos independientes para mejorar la organización y modularidad.           | Las rutas están separadas en archivos como `download_routes.py`, `music_routes.py` e `image_routes.py`.                    |
+| **Abstracción de Funciones** | Simplifica el uso de funciones complejas, reduciendo el acoplamiento entre módulos.                              | `FileService` abstrae operaciones como limpieza de nombres de archivos, guardado de imágenes y conversión de MP3.           |
+| **Controlador (Controller)** | Coordina la lógica de la aplicación, manejando la interacción entre servicios y vistas.                         | `app.py` actúa como controlador principal, configurando la aplicación y delegando responsabilidades a los servicios.        |
+| **Fachada (Facade)**      | Proporciona una interfaz unificada para acceder a un conjunto de subsistemas, ocultando la complejidad.           | Los servicios como `ZipService` encapsulan múltiples operaciones complejas en métodos sencillos para los usuarios.          |
+| **Fábrica (Factory Method)** | Proporciona un método para crear objetos sin exponer el proceso de instanciación al cliente.                     | Implícito en servicios como `YouTubeService`, que crean instancias de clases necesarias para interactuar con la API.         |
+| **Adaptador (Adapter)**   | Permite que una interfaz existente se adapte a otra esperada por el cliente, facilitando la integración.          | `YouTubeService` actúa como adaptador entre la API externa de `yt_dlp` y los servicios internos de la aplicación.           |
+
+**4.1 Beneficios de los Patrones de Diseño Implementados**  
+- **Mantenimiento:** La separación de responsabilidades facilita la localización y corrección de errores.  
+- **Escalabilidad:** La modularidad permite agregar nuevas funcionalidades sin alterar las existentes.  
+- **Reutilización:** Los servicios y repositorios son independientes y pueden ser reutilizados en otros proyectos.  
+- **Claridad:** La abstracción de funciones y el uso de fachadas simplifican la interacción con subsistemas complejos.  
